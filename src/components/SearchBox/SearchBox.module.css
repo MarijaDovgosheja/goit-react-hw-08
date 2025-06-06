@@ -1,0 +1,12 @@
+.searchBox {
+  padding: 0 0 0 40px;
+  display: flex;
+  flex-direction: column;
+}
+.titleBox {
+  margin: 0;
+  margin-bottom: 5px;
+}
+.search {
+  padding: 8px;
+}
