@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import "modern-normalize";
 import "./index.css";
-import { store } from "./redux/store";
+import { store } from "./redux/filters/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Provider store={store}>
