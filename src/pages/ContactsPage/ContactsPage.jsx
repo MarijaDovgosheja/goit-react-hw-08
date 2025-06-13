@@ -4,6 +4,7 @@ import SearchBox from "../../components/SearchBox/SearchBox";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchContacts } from "../../redux/contacts/operations";
+import { Box, Typography } from "@mui/material";
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -13,11 +14,13 @@ export default function ContactsPage() {
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Phonebook</h1>
+    <Box sx={{ mt: 6 }}>
+      <Typography variant="h4" align="center" gutterBottom>
+        Ваші Контакти
+      </Typography>
       <ContactForm />
       <SearchBox />
       <ContactList />
-    </div>
+    </Box>
   );
 }

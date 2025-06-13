@@ -3,6 +3,7 @@ import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { addContact } from "../../redux/contacts/operations";
 import css from "./ContactForm.module.css";
+import toast from "react-hot-toast";
 
 export default function ContactForm() {
   const dispatch = useDispatch();
@@ -17,15 +18,17 @@ export default function ContactForm() {
       .max(50, "Max 50 chars")
       .required("This is a required field"),
   });
+  const handleSubmit = async (values, actions) => {
+    await dispatch(addContact(values)).unwrap();
+    toast.success("Контакт додано!");
+    actions.resetForm();
+  };
 
   return (
     <Formik
       initialValues={{ name: "", number: "" }}
       validationSchema={ContactSchema}
-      onSubmit={(values, actions) => {
-        dispatch(addContact(values));
-        actions.resetForm();
-      }}
+      onSubmit={handleSubmit}
     >
       <div className={css.wrapperForm}>
         <Form className={css.formContainer}>

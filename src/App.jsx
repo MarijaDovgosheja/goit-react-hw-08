@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import { refreshUser } from "./redux/auth/operations";
+import { Toaster } from "react-hot-toast";
 import { selectIsRefreshing } from "./redux/auth/selectors";
 import Layout from "./components/Layout/Layout";
 import HomePage from "./pages/HomePage/HomePage";
@@ -19,34 +20,46 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  if (isRefreshing) return <p>Loading user...</p>;
+  if (isRefreshing) <p>Loading user...</p>;
 
   return (
-    <Routes>
-      <Route path="/" element={<Layout />}>
-        <Route index element={<HomePage />} />
-        <Route
-          path="login"
-          element={
-            <RestricteRoute redirectTo="/contacts" component={<LoginPage />} />
-          }
-        />
-        <Route
-          path="register"
-          element={
-            <RestricteRoute
-              redirectTo="/contacts"
-              component={<RegistrationPage />}
+    <>
+      <Layout>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route
+              path="login"
+              element={
+                <RestricteRoute
+                  redirectTo="/contacts"
+                  component={<LoginPage />}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="contacts"
-          element={
-            <PrivateRoute redirectTo="/login" component={<ContactsPage />} />
-          }
-        />
-      </Route>
-    </Routes>
+            <Route
+              path="register"
+              element={
+                <RestricteRoute
+                  redirectTo="/"
+                  component={<RegistrationPage />}
+                />
+              }
+            />
+            <Route
+              path="contacts"
+              element={
+                <PrivateRoute
+                  redirectTo="/login"
+                  component={<ContactsPage />}
+                />
+              }
+            />
+          </Routes>
+        </Suspense>
+      </Layout>
+
+      <Toaster position="top-right" reverseOrder={false} />
+    </>
   );
 }
