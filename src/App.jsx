@@ -59,7 +59,7 @@ export default function App() {
         </Suspense>
       </Layout>
 
-      <Toaster position="top-right" reverseOrder={false} />
+      <Toaster position="top-left" reverseOrder={false} />
     </>
   );
 }

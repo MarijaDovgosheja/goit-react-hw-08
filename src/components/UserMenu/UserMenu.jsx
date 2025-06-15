@@ -17,6 +17,9 @@ export default function UserMenu() {
   return (
     <Box
       sx={{
+        position: "absolute",
+        top: 0,
+        right: 0,
         display: "flex",
         alignItems: "center",
         gap: 2,
