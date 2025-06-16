@@ -10,7 +10,7 @@ import RegistrationPage from "./pages/RegistrationPage/RegistrationPage";
 import LoginPage from "./pages/LoginPage/LoginPage";
 import ContactsPage from "./pages/ContactsPage/ContactsPage";
 import PrivateRoute from "./components/PrivateRoute";
-import RestricteRoute from "./components/RestricteRoute";
+import RestrictedRoute from "./components/RestrictedRoute";
 
 export default function App() {
   const dispatch = useDispatch();
@@ -20,7 +20,9 @@ export default function App() {
     dispatch(refreshUser());
   }, [dispatch]);
 
-  if (isRefreshing) <p>Loading user...</p>;
+  if (isRefreshing) {
+    return <p>Loading user...</p>;
+  }
 
   return (
     <>
@@ -31,7 +33,7 @@ export default function App() {
             <Route
               path="login"
               element={
-                <RestricteRoute
+                <RestrictedRoute
                   redirectTo="/contacts"
                   component={<LoginPage />}
                 />
@@ -40,7 +42,7 @@ export default function App() {
             <Route
               path="register"
               element={
-                <RestricteRoute
+                <RestrictedRoute
                   redirectTo="/"
                   component={<RegistrationPage />}
                 />
